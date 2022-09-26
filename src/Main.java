@@ -27,7 +27,7 @@ public class Main {
         /*
          * получениe списка фамилий призывников.
          */
-        List<String> asList = persons.stream()
+        List<String> recruitList = persons.stream()
                 .filter(person -> person.getAge() >= 18
                                   && person.getAge() < 27)
                 .filter(person -> person.getSex() == Sex.MAN)
@@ -38,12 +38,12 @@ public class Main {
          * получение отсортированного по фамилии списка
          * потенциально работоспособных людей с высшим образованием.
          */
-        List<String> asList2 = persons.stream()
+        List<Person> EmployablePeopleList = persons.stream()
                 .filter(person -> person.getEducation() == Education.HIGHER)
                 .filter(person -> person.getAge() >= 18)
                 .filter(person -> (person.getSex() == Sex.WOMAN && person.getAge() < 60)
                                   || (person.getSex() == Sex.MAN && person.getAge() < 65))
-                .map(Person::getFamily)
+                .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
     }
 }
